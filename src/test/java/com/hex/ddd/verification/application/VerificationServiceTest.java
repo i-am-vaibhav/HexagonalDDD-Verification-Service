@@ -1,5 +1,8 @@
 package com.hex.ddd.verification.application;
 
+import com.hex.ddd.verification.domain.events.VerificationCompletedEvent;
+import com.hex.ddd.verification.domain.model.VerificationSession;
+import com.hex.ddd.verification.domain.model.VerificationStatus;
 import com.hex.ddd.verification.domain.ports.out.EventPublisherPort;
 import com.hex.ddd.verification.domain.ports.out.IdentityVendorPort;
 import com.hex.ddd.verification.domain.ports.out.VerificationRepository;
@@ -23,8 +26,13 @@ class VerificationServiceTest {
         // Act
         service.handle("user-1", "ABC123");
 
-        // Assert
-        verify(repository).save(any());
-        verify(eventPublisher).publishStatusChanged("user-1", "SUCCESS");
+        // Assert: repository saved a VerificationSession
+        verify(repository).save(any(VerificationSession.class));
+
+        // Assert: eventPublisher published a VerificationCompletedEvent with expected values
+        verify(eventPublisher).publishStatusChanged(argThat(
+                (VerificationCompletedEvent e) ->
+                        "user-1".equals(e.getUserId()) && e.getStatus() == VerificationStatus.SUCCESS
+        ));
     }
 }
