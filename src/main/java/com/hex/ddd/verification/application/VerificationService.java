@@ -1,5 +1,6 @@
 package com.hex.ddd.verification.application;
 
+import com.hex.ddd.verification.domain.events.VerificationCompletedEvent;
 import com.hex.ddd.verification.domain.model.VerificationSession;
 import com.hex.ddd.verification.domain.ports.in.StartVerificationUseCase;
 import com.hex.ddd.verification.domain.ports.out.EventPublisherPort;
@@ -31,7 +32,10 @@ public class VerificationService implements StartVerificationUseCase {
 
         verificationRepository.save(verificationSession);
 
-        eventPublisherPort.publishStatusChanged(userId, verificationSession.getStatus().name());
+        VerificationCompletedEvent event =
+                new VerificationCompletedEvent(verificationSession.getId(), userId, verificationSession.getStatus());
+
+        eventPublisherPort.publishStatusChanged(event);
 
     }
 
