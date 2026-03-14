@@ -32,7 +32,7 @@ class VerificationServiceTest {
         // Assert: eventPublisher published a VerificationCompletedEvent with expected values
         verify(eventPublisher).publishStatusChanged(argThat(
                 (VerificationCompletedEvent e) ->
-                        "user-1".equals(e.getUserId()) && e.getStatus() == VerificationStatus.SUCCESS
+                        "user-1".equals(e.getUserId()) && e.getStatus() == com.hex.ddd.verification.domain.model.VerificationStatus.SUCCESS
         ));
     }
 }
