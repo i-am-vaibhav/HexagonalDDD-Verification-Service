@@ -19,10 +19,10 @@ public class OutboxPublisherWorker {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 2000)
     public void publishEvents() {
 
-        List<OutboxEvent> events = repository.findByStatus("NEW");
+        List<OutboxEvent> events = repository.lockNextBatch(10);
 
         for (OutboxEvent event : events) {
 
