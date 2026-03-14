@@ -9,16 +9,25 @@ import tools.jackson.databind.ObjectMapper;
 @Component
 public class KafkaEventPublisherAdapter implements EventPublisherPort {
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
     private static final String TOPIC = "verification-events";
-    private ObjectMapper objectMapper = new ObjectMapper();
 
-    public KafkaEventPublisherAdapter(KafkaTemplate<String, String> kafkaTemplate) {
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final ObjectMapper objectMapper;
+
+    public KafkaEventPublisherAdapter(KafkaTemplate<String, String> kafkaTemplate, ObjectMapper objectMapper) {
         this.kafkaTemplate = kafkaTemplate;
+        this.objectMapper = objectMapper;
     }
 
     @Override
     public void publishStatusChanged(VerificationCompletedEvent event) {
-        kafkaTemplate.send(TOPIC, event.getUserId(), objectMapper.writeValueAsString(event));
+        try {
+            String payload = objectMapper.writeValueAsString(event);
+
+            kafkaTemplate.send(TOPIC, payload);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to serialize event", e);
+        }
     }
 }
