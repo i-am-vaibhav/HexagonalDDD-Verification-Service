@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:15
-    container_name: wise-db
+    container_name: db
     ports:
       - "5432:5432"
     environment:
@@ -11,14 +11,14 @@ services:
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.4.0
-    container_name: wise-zookeeper
+    container_name: zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka:
     image: confluentinc/cp-kafka:7.4.0
-    container_name: wise-kafka
+    container_name: kafka
     depends_on:
       - zookeeper
     ports:

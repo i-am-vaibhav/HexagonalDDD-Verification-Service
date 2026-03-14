@@ -1,15 +1,14 @@
 package com.hex.ddd.verification.infrastructure.adapters.out.persistence;
 
 import com.hex.ddd.verification.domain.model.VerificationSession;
-import com.hex.ddd.verification.domain.ports.out.VerificationRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public class VerificationPersistenceAdapter implements VerificationRepository {
+public class VerificationPersistenceAdapter implements com.hex.ddd.verification.domain.ports.out.VerificationRepository {
 
-    private final SpringDataVerificationRepository repository;
+    private final VerificationRepository repository;
 
-    public VerificationPersistenceAdapter(SpringDataVerificationRepository repository) {
+    public VerificationPersistenceAdapter(VerificationRepository repository) {
         this.repository = repository;
     }
 

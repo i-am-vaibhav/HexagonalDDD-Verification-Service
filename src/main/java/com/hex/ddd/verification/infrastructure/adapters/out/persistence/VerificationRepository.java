@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface SpringDataVerificationRepository extends JpaRepository<VerificationEntity, UUID> {
+public interface VerificationRepository extends JpaRepository<VerificationEntity, UUID> {
 }
