@@ -1,5 +1,6 @@
 package com.hex.ddd.verification.infrastructure.config;
 
+import com.hex.ddd.verification.domain.events.VerificationCompletedEvent;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
@@ -21,9 +22,12 @@ public class KafkaConfig {
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        
-        // Wise-level Reliability: Ensure the message actually hits the broker
-        configProps.put(ProducerConfig.ACKS_CONFIG, "all"); 
+
+        // Reliability settings
+        configProps.put(ProducerConfig.ACKS_CONFIG, "all");
+        configProps.put(ProducerConfig.RETRIES_CONFIG, 3);
+        configProps.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
+
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
