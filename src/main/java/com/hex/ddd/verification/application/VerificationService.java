@@ -1,6 +1,7 @@
 package com.hex.ddd.verification.application;
 
 import com.hex.ddd.verification.domain.events.VerificationCompletedEvent;
+import com.hex.ddd.verification.domain.model.DocumentNumber;
 import com.hex.ddd.verification.domain.model.VerificationSession;
 import com.hex.ddd.verification.domain.ports.in.StartVerificationUseCase;
 import com.hex.ddd.verification.domain.ports.out.EventPublisherPort;
@@ -24,9 +25,9 @@ public class VerificationService implements StartVerificationUseCase {
     @Override
     public void handle(String userId, String documentNumber) {
 
-        VerificationSession verificationSession = new VerificationSession(userId, documentNumber);
+        VerificationSession verificationSession = new VerificationSession(userId, new DocumentNumber(documentNumber));
 
-        boolean isDocValid = identityVendorPort.isValid(documentNumber);
+        boolean isDocValid = identityVendorPort.isValid(verificationSession.getDocumentNumber());
 
         verificationSession.evaluate(isDocValid);
 
