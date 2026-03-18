@@ -1,8 +1,8 @@
 package com.hex.ddd.verification.application;
 
 import com.hex.ddd.verification.domain.events.VerificationCompletedEvent;
+import com.hex.ddd.verification.domain.model.DocumentNumber;
 import com.hex.ddd.verification.domain.model.VerificationSession;
-import com.hex.ddd.verification.domain.model.VerificationStatus;
 import com.hex.ddd.verification.domain.ports.out.EventPublisherPort;
 import com.hex.ddd.verification.domain.ports.out.IdentityVendorPort;
 import com.hex.ddd.verification.domain.ports.out.VerificationRepository;
@@ -21,10 +21,10 @@ class VerificationServiceTest {
     @Test
     void should_complete_verification_when_vendor_is_successful() {
         // Arrange
-        when(vendorPort.isValid("ABC123")).thenReturn(true);
+        when(vendorPort.isValid(any(DocumentNumber.class))).thenReturn(true);
 
         // Act
-        service.handle("user-1", "ABC123");
+        service.handle("user123", "ABC123");
 
         // Assert: repository saved a VerificationSession
         verify(repository).save(any(VerificationSession.class));
@@ -32,7 +32,7 @@ class VerificationServiceTest {
         // Assert: eventPublisher published a VerificationCompletedEvent with expected values
         verify(eventPublisher).publishStatusChanged(argThat(
                 (VerificationCompletedEvent e) ->
-                        "user-1".equals(e.getUserId()) && e.getStatus() == com.hex.ddd.verification.domain.model.VerificationStatus.SUCCESS
+                        "user123".equals(e.getUserId()) && e.getStatus() == com.hex.ddd.verification.domain.model.VerificationStatus.SUCCESS
         ));
     }
 }

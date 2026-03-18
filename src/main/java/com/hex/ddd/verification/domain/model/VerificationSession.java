@@ -1,14 +1,17 @@
 package com.hex.ddd.verification.domain.model;
 
+import lombok.Getter;
+
 import java.util.UUID;
 
+@Getter
 public class VerificationSession {
     private final UUID id;
-    private final String userId;
-    private final String documentNumber;
+    private final UserId userId;
+    private final DocumentNumber documentNumber;
     private VerificationStatus status;
 
-    public VerificationSession(String userId, String documentNumber){
+    public VerificationSession(UserId userId, DocumentNumber documentNumber){
         this.id = UUID.randomUUID();
         this.userId = userId;
         this.documentNumber = documentNumber;
@@ -17,24 +20,9 @@ public class VerificationSession {
 
     public void evaluate(boolean isDocumentValid){
         if (this.status != VerificationStatus.PENDING) {
-            throw  new IllegalStateException(" evaluate a completed session.");
+            throw  new IllegalStateException("Don't evaluate a completed session.");
         }
         this.status = isDocumentValid ? VerificationStatus.SUCCESS : VerificationStatus.REJECTED;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getDocumentNumber() {
-        return documentNumber;
-    }
-
-    public VerificationStatus getStatus() {
-        return status;
-    }
 }

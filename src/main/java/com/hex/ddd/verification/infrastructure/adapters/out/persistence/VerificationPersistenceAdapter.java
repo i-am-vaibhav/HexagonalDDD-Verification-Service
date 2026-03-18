@@ -16,7 +16,7 @@ public class VerificationPersistenceAdapter implements com.hex.ddd.verification.
     public void save(VerificationSession session) {
         VerificationEntity entity = new VerificationEntity(
             session.getId(),
-            session.getUserId(),
+            session.getUserId().userId(),
             session.getStatus()
         );
         repository.save(entity);
