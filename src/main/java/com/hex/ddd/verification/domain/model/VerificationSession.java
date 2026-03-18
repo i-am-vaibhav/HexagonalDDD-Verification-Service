@@ -7,11 +7,11 @@ import java.util.UUID;
 @Getter
 public class VerificationSession {
     private final UUID id;
-    private final String userId;
+    private final UserId userId;
     private final DocumentNumber documentNumber;
     private VerificationStatus status;
 
-    public VerificationSession(String userId, DocumentNumber documentNumber){
+    public VerificationSession(UserId userId, DocumentNumber documentNumber){
         this.id = UUID.randomUUID();
         this.userId = userId;
         this.documentNumber = documentNumber;

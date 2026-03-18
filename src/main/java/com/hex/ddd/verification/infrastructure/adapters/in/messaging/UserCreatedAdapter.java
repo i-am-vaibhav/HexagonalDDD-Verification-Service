@@ -20,15 +20,3 @@ public class UserCreatedAdapter {
 
 }
 
-class UserRegistrationEvent {
-    private String userId;
-    private String documentNumber;
-    // Getters and Setters...
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getDocumentNumber() {
-        return documentNumber;
-    }
-}

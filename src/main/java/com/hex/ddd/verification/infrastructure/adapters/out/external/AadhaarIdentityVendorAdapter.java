@@ -10,7 +10,7 @@ public class AadhaarIdentityVendorAdapter implements IdentityVendorPort {
     @Override
     public boolean isValid(DocumentNumber documentNumber) {
         System.out.println("Calling external KYC vendor for AADHAAR number: " + documentNumber);
-        return documentNumber != null && documentNumber.getDocumentNumber().length() == 12;
+        return documentNumber != null && documentNumber.documentNumber().length() == 12;
     }
 
 }

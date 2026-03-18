@@ -1,18 +1,16 @@
 package com.hex.ddd.verification.domain.model;
 
 import com.hex.ddd.verification.domain.exception.InvalidDocumentNumber;
-import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
-public class DocumentNumber {
+public record DocumentNumber(String documentNumber) {
 
-    @Getter
-    String documentNumber;
-
-    public DocumentNumber(String documentNumber){
-        if (!StringUtils.isAlphanumeric(documentNumber)){
-            throw new InvalidDocumentNumber();
+    public DocumentNumber {
+        if (StringUtils.isBlank(documentNumber)){
+            throw new InvalidDocumentNumber("Must not be null or blank");
         }
-        this.documentNumber = documentNumber;
+        if (!StringUtils.isAlphanumeric(documentNumber)) {
+            throw new InvalidDocumentNumber("Must be alpha numeric");
+        }
     }
 }

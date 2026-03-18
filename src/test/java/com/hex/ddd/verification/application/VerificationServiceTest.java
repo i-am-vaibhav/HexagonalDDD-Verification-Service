@@ -24,7 +24,7 @@ class VerificationServiceTest {
         when(vendorPort.isValid(any(DocumentNumber.class))).thenReturn(true);
 
         // Act
-        service.handle("user-1", "ABC123");
+        service.handle("user123", "ABC123");
 
         // Assert: repository saved a VerificationSession
         verify(repository).save(any(VerificationSession.class));
@@ -32,7 +32,7 @@ class VerificationServiceTest {
         // Assert: eventPublisher published a VerificationCompletedEvent with expected values
         verify(eventPublisher).publishStatusChanged(argThat(
                 (VerificationCompletedEvent e) ->
-                        "user-1".equals(e.getUserId()) && e.getStatus() == com.hex.ddd.verification.domain.model.VerificationStatus.SUCCESS
+                        "user123".equals(e.getUserId()) && e.getStatus() == com.hex.ddd.verification.domain.model.VerificationStatus.SUCCESS
         ));
     }
 }

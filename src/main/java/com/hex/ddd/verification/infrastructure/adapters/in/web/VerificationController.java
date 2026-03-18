@@ -15,14 +15,7 @@ public class VerificationController {
 
     @PostMapping
     public void startVerification(@RequestBody VerificationRequest request) {
-        // We translate the Web DTO into domain primitives/objects
         startVerificationUseCase.handle(request.getUserId(), request.getDocumentNumber());
     }
 }
 
-class VerificationRequest {
-    private String userId;
-    private String documentNumber;
-    public String getUserId() { return userId; }
-    public String getDocumentNumber() { return documentNumber; }
-}
