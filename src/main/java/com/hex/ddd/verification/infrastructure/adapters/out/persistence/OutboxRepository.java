@@ -15,4 +15,12 @@ public interface OutboxRepository extends JpaRepository<OutboxEvent, UUID> {
         LIMIT :batchSize
         """, nativeQuery = true)
     List<OutboxEvent> lockNextBatch(int batchSize);
+
+    @Query(value = """
+        UPDATE outbox_events SET STAUS = 'SENT'
+        WHERE id = :id
+        FOR UPDATE SKIP LOCKED
+        LIMIT 1
+        """, nativeQuery = true)
+    void updateStatusToSent(UUID id);
 }
