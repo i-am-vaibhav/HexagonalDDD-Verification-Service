@@ -28,9 +28,7 @@ public class OutboxPublisherWorker {
 
             kafkaTemplate.send(event.getTopic(), event.getPayload());
 
-            event.setStatus("SENT");
-
-            repository.save(event);
+            repository.updateStatusToSent(event.getId());
         }
     }
 }
