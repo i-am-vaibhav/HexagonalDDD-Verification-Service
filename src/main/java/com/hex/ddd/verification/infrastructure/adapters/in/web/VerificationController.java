@@ -1,6 +1,7 @@
 package com.hex.ddd.verification.infrastructure.adapters.in.web;
 
 import com.hex.ddd.verification.domain.ports.in.StartVerificationUseCase;
+import com.hex.ddd.verification.infrastructure.adapters.in.dto.VerificationRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

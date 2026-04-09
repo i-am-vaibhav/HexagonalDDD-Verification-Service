@@ -2,6 +2,7 @@ package com.hex.ddd.verification.infrastructure.adapters.out.messaging;
 
 import com.hex.ddd.verification.infrastructure.adapters.out.persistence.OutboxEvent;
 import com.hex.ddd.verification.infrastructure.adapters.out.persistence.OutboxRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ public class OutboxPublisherWorker {
         this.kafkaTemplate = kafkaTemplate;
     }
 
+    @Transactional
     @Scheduled(fixedDelay = 2000)
     public void publishEvents() {
 

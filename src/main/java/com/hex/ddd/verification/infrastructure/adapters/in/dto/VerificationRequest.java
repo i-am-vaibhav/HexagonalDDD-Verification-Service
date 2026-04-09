@@ -1,4 +1,4 @@
-package com.hex.ddd.verification.infrastructure.adapters.in.web;
+package com.hex.ddd.verification.infrastructure.adapters.in.dto;
 
 import lombok.Getter;
 
