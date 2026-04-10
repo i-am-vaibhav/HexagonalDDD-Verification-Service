@@ -1,7 +1,6 @@
 package com.hex.ddd.verification.domain.events;
 
 import com.hex.ddd.verification.domain.model.VerificationStatus;
-import tools.jackson.databind.util.JSONPObject;
 
 import java.util.UUID;
 
