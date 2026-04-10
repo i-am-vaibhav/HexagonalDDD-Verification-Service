@@ -1,10 +1,7 @@
 package com.hex.ddd.verification.domain.model;
 
-import lombok.Getter;
-
 import java.util.UUID;
 
-@Getter
 public class VerificationSession {
     private final UUID id;
     private final UserId userId;
@@ -25,4 +22,19 @@ public class VerificationSession {
         this.status = isDocumentValid ? VerificationStatus.SUCCESS : VerificationStatus.REJECTED;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public UserId getUserId() {
+        return userId;
+    }
+
+    public DocumentNumber getDocumentNumber() {
+        return documentNumber;
+    }
+
+    public VerificationStatus getStatus() {
+        return status;
+    }
 }
